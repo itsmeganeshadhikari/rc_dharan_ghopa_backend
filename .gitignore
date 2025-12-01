@@ -1,0 +1,73 @@
+# ==========================
+# Node & NestJS
+# ==========================
+
+# compiled output
+dist/
+build/
+
+# runtime data
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# environment
+.env
+.env*.local
+.env.development
+.env.production
+.env.test
+
+# node modules
+node_modules/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# TypeScript
+*.tsbuildinfo
+
+# coverage & test output
+coverage/
+test-results/
+
+# temporary files
+tmp/
+temp/
+
+# nest graphql schema
+schema.gql
+*.graphqls
+
+# pm2 logs
+.pids
+*.pid
+*.seed
+*.pid.lock
+
+# lock files backup
+package-lock.json.*
+yarn.lock.*
+pnpm-lock.yaml.*
+
+# misc
+.nyc_output/
+.cache/
+.eslintcache
+
+# postgres docker volume (if used)
+pgdata/
+
+# files not tracked by git
+*.orig
+*.bak
+*.backup
