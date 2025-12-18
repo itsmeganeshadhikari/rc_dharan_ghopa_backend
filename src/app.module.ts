@@ -9,6 +9,9 @@ import { ClubModule } from './club/club.module';
 import { MemberModule } from './member/member.module';
 import { EventModule } from './event/event.module';
 import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin/landingPage/default';
+import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { UploadModule } from './upload/upload.module';
+import { SeedModule } from './seed/seed.module';
 
 @Module({
   imports: [
@@ -20,9 +23,12 @@ import { ApolloServerPluginLandingPageLocalDefault } from '@apollo/server/plugin
       sortSchema: true,
       playground:false,
       plugins: [ApolloServerPluginLandingPageLocalDefault()],
-      context: ({ req }: { req: any }) => ({ req }),
+      context: ({ req }: { req: any }) => ({ req })
     }),
+    SeedModule,
     AuthModule,
+    CloudinaryModule,
+    UploadModule,
     ClubModule,
     MemberModule,
     EventModule,

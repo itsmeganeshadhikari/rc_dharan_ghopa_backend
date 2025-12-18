@@ -12,7 +12,6 @@ export class AuthResolver {
 
   @Mutation(() => AdminUser)
   registerAdmin(@Args('input') input: RegisterAdminInput): Promise<AdminUser> {
-    log('RegisterAdminInput:', input);
     return this.authService.registerAdmin(input);
   }
 

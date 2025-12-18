@@ -15,7 +15,9 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(config: ConfigService) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
+      // ignoreExpiration: false, // still respects 365d
       secretOrKey: config.get<string>('JWT_SECRET'),
+      expireIn: config.get<string>('JWT_EXPIRES_IN', '1m'),
     });
   }
 

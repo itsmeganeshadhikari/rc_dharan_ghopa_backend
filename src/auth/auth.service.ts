@@ -7,6 +7,7 @@ import { AdminUser, AdminRole } from './admin-user.entity';
 import { RegisterAdminInput } from './dto/register-admin.input';
 import { LoginInput } from './dto/login.input';
 import { AuthResponse } from './dto/auth-response.type';
+import { AuthRefreshResponse } from './dto/auth-refresh-response';
 
 @Injectable()
 export class AuthService {
@@ -36,7 +37,23 @@ export class AuthService {
     const isValid = await bcrypt.compare(input.password, user.password);
     if (!isValid) throw new UnauthorizedException('Invalid credentials');
     const payload = { sub: user.id, username: user.username, role: user.role };
-    const accessToken = await this.jwtService.signAsync(payload);
-    return { accessToken, user };
+     const accessToken = await this.jwtService.signAsync(payload, { expiresIn: '15m' });
+
+    // Generate refresh token (expires in 7 days)
+    const refreshToken = this.jwtService.sign(payload, { expiresIn: '7d' });
+
+    return { accessToken, refreshToken, user };
+  }
+
+   // Refresh the access token using the refresh token
+  async refresh(refreshToken: string): Promise<AuthRefreshResponse> {
+    try {
+      const decoded = this.jwtService.verify(refreshToken, { secret: process.env.JWT_SECRET });
+      const payload = { sub: decoded.sub, username: decoded.username, role: decoded.role };
+      const newAccessToken = this.jwtService.sign(payload, { expiresIn: '15m' });
+      return { accessToken: newAccessToken };
+    } catch (error) {
+      throw new UnauthorizedException('Invalid refresh token');
+    }
   }
 }

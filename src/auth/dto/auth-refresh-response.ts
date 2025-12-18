@@ -2,13 +2,7 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { AdminUser } from '../admin-user.entity';
 
 @ObjectType()
-export class AuthResponse {
+export class AuthRefreshResponse {
   @Field()
   accessToken!: string;
-  
-  @Field()
-  refreshToken!: string;
-
-  @Field(() => AdminUser)
-  user!: AdminUser;
 }
